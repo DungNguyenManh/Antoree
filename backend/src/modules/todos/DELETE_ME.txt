@@ -1,0 +1,1 @@
+Xóa toàn bộ thư mục todos và các file bên trong vì không còn sử dụng cho project này.
