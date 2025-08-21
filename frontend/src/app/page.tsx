@@ -1,8 +1,14 @@
 
+
+
 export default function Home() {
   return (
-    <div className="flex items-center justify-center min-h-screen">
-      <h1 className="text-3xl font-bold">Nguyễn Mạnh Dũng</h1>
-    </div>
+    <main className="flex flex-col items-center justify-center min-h-screen gap-6">
+      <h1 className="text-3xl font-bold mb-4">Antoree - Nền tảng học tiếng Anh trực tuyến</h1>
+      <div className="flex gap-4">
+        <a href="/login" className="bg-blue-600 text-white px-6 py-2 rounded font-semibold">Đăng nhập</a>
+        <a href="/register" className="bg-green-600 text-white px-6 py-2 rounded font-semibold">Đăng ký</a>
+      </div>
+    </main>
   );
 }
