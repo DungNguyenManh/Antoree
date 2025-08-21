@@ -8,29 +8,46 @@ export default function AdminLogin({ onLogin }: { onLogin: (token: string) => vo
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [failCount, setFailCount] = useState(0);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError("");
     try {
-      const res = await fetch(`${API_URL}/auth/login`, {
+      const res = await fetch(`${API_URL}/api/v1/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password })
       });
       const data = await res.json();
       if (res.ok && data.access_token) {
-        onLogin(data.access_token);
+        // Kiểm tra role admin
+        if (data.user && data.user.role === "admin") {
+          onLogin(data.access_token);
+        } else {
+          setError("Bạn không có quyền truy cập admin!");
+          setFailCount(failCount + 1);
+        }
       } else {
         setError(data.message || "Đăng nhập thất bại");
+        setFailCount(failCount + 1);
       }
     } catch (err: unknown) {
       setError("Lỗi: " + (err instanceof Error ? err.message : String(err)));
+      setFailCount(failCount + 1);
     } finally {
       setLoading(false);
     }
   };
+
+  // Nếu sai 3 lần thì chuyển về trang chủ
+  if (failCount >= 3) {
+    if (typeof window !== "undefined") {
+      window.location.href = "/";
+    }
+    return null;
+  }
 
   return (
     <form onSubmit={handleSubmit} className="max-w-sm mx-auto mt-10 p-6 border rounded shadow">
