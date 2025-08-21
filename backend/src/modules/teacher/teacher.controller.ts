@@ -15,33 +15,6 @@ export class TeacherController {
         return this.teacherService.create(createTeacherDto);
     }
 
-    // API upload avatar
-    @Post('upload-avatar')
-    @UseInterceptors(
-        FileInterceptor('file', {
-            storage: diskStorage({
-                destination: './uploads/avatars',
-                filename: (req, file, cb) => {
-                    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
-                    cb(null, uniqueSuffix + extname(file.originalname));
-                },
-            }),
-            fileFilter: (req, file, cb) => {
-                if (!file.mimetype.match(/^image\//)) {
-                    return cb(new Error('Only image files are allowed!'), false);
-                }
-                cb(null, true);
-            },
-        })
-    )
-    uploadAvatar(@UploadedFile() file: Multer.File) {
-        if (!file) {
-            return { success: false, message: 'No file uploaded' };
-        }
-        // Trả về URL truy cập ảnh (giả sử backend phục vụ static folder uploads)
-        const url = `/uploads/avatars/${file.filename}`;
-        return { success: true, url };
-    }
 
     @Get()
     findAll() {
