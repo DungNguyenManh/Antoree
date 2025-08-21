@@ -7,10 +7,6 @@ export default function AdminCreateTeacher({ token }: { token: string }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [bio, setBio] = useState("");
-  const [avatarUrl, setAvatarUrl] = useState("");
-  const [file, setFile] = useState<File | null>(null);
-  const [preview, setPreview] = useState<string>("");
-  const [uploading, setUploading] = useState(false);
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -27,12 +23,12 @@ export default function AdminCreateTeacher({ token }: { token: string }) {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ name, email, bio, avatarUrl }),
+        body: JSON.stringify({ name, email, bio }),
       });
       const data = await res.json();
       if (res.ok) {
         setSuccess("Tạo giáo viên thành công!");
-        setName(""); setEmail(""); setBio(""); setAvatarUrl("");
+        setName(""); setEmail(""); setBio("");
       } else {
         setError(data.message || "Tạo thất bại");
       }
@@ -43,38 +39,6 @@ export default function AdminCreateTeacher({ token }: { token: string }) {
     }
   };
 
-  // Xử lý upload avatar
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const f = e.target.files?.[0];
-    if (f) {
-      setFile(f);
-      setPreview(URL.createObjectURL(f));
-    }
-  };
-
-  const handleUpload = async () => {
-    if (!file) return;
-    setUploading(true);
-    setError("");
-    const formData = new FormData();
-    formData.append("file", file);
-    try {
-      const res = await fetch(`${API_URL}/teacher/upload-avatar`, {
-        method: "POST",
-        body: formData,
-      });
-      const data = await res.json();
-      if (data.success && data.url) {
-        setAvatarUrl(API_URL + data.url);
-      } else {
-        setError(data.message || "Upload thất bại");
-      }
-    } catch (err: unknown) {
-      setError("Lỗi upload: " + (err instanceof Error ? err.message : String(err)));
-    } finally {
-      setUploading(false);
-    }
-  };
 
   return (
     <form onSubmit={handleSubmit} className="max-w-md mx-auto mt-8 p-6 border rounded shadow">
@@ -101,34 +65,6 @@ export default function AdminCreateTeacher({ token }: { token: string }) {
         className="w-full mb-2 p-2 border rounded"
         value={bio}
         onChange={e => setBio(e.target.value)}
-      />
-      {/* Upload avatar */}
-      <div className="mb-2">
-        <input type="file" accept="image/*" onChange={handleFileChange} />
-        {preview && (
-          <div className="my-2">
-            <img src={preview} alt="Preview" className="w-24 h-24 object-cover rounded-full" />
-          </div>
-        )}
-        <button
-          type="button"
-          className="bg-blue-500 text-white px-3 py-1 rounded mt-1"
-          onClick={handleUpload}
-          disabled={!file || uploading}
-        >
-          {uploading ? "Đang upload..." : "Upload avatar"}
-        </button>
-        {avatarUrl && (
-          <div className="mt-2 text-xs break-all">{avatarUrl}</div>
-        )}
-      </div>
-      <input
-        type="text"
-        placeholder="Avatar URL (nếu có)"
-        className="w-full mb-2 p-2 border rounded"
-        value={avatarUrl}
-        onChange={e => setAvatarUrl(e.target.value)}
-        readOnly
       />
       <button
         type="submit"
