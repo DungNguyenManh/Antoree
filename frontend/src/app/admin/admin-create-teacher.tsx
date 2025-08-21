@@ -1,6 +1,8 @@
 "use client";
 import { useState } from "react";
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
 export default function AdminCreateTeacher({ token }: { token: string }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -19,7 +21,7 @@ export default function AdminCreateTeacher({ token }: { token: string }) {
     setError("");
     setSuccess("");
     try {
-      const res = await fetch("https://antoree-backend-40hj.onrender.com/teacher", {
+      const res = await fetch(`${API_URL}/teacher`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -57,13 +59,13 @@ export default function AdminCreateTeacher({ token }: { token: string }) {
     const formData = new FormData();
     formData.append("file", file);
     try {
-      const res = await fetch("https://antoree-backend-40hj.onrender.com/teacher/upload-avatar", {
+      const res = await fetch(`${API_URL}/teacher/upload-avatar`, {
         method: "POST",
         body: formData,
       });
       const data = await res.json();
       if (data.success && data.url) {
-        setAvatarUrl("https://antoree-backend-40hj.onrender.com" + data.url);
+        setAvatarUrl(API_URL + data.url);
       } else {
         setError(data.message || "Upload thất bại");
       }
