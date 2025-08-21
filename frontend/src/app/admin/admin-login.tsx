@@ -25,8 +25,8 @@ export default function AdminLogin({ onLogin }: { onLogin: (token: string) => vo
       } else {
         setError(data.message || "Đăng nhập thất bại");
       }
-    } catch (err: any) {
-      setError("Lỗi: " + err.message);
+    } catch (err: unknown) {
+      setError("Lỗi: " + (err instanceof Error ? err.message : String(err)));
     } finally {
       setLoading(false);
     }

@@ -36,8 +36,8 @@ export default function AdminCreateTeacher({ token }: { token: string }) {
       } else {
         setError(data.message || "Tạo thất bại");
       }
-    } catch (err: any) {
-      setError("Lỗi: " + err.message);
+    } catch (err: unknown) {
+      setError("Lỗi: " + (err instanceof Error ? err.message : String(err)));
     } finally {
       setLoading(false);
     }
@@ -69,8 +69,8 @@ export default function AdminCreateTeacher({ token }: { token: string }) {
       } else {
         setError(data.message || "Upload thất bại");
       }
-    } catch (err: any) {
-      setError("Lỗi upload: " + err.message);
+    } catch (err: unknown) {
+      setError("Lỗi upload: " + (err instanceof Error ? err.message : String(err)));
     } finally {
       setUploading(false);
     }

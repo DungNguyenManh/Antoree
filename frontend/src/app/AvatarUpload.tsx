@@ -33,8 +33,8 @@ export default function AvatarUpload() {
       } else {
         setError(data.message || "Upload thất bại");
       }
-    } catch (err: any) {
-      setError("Lỗi upload: " + err.message);
+    } catch (err: unknown) {
+      setError("Lỗi upload: " + (err instanceof Error ? err.message : String(err)));
     } finally {
       setUploading(false);
     }
