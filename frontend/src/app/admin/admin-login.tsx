@@ -1,9 +1,11 @@
 "use client";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export default function AdminLogin({ onLogin }: { onLogin: (token: string) => void }) {
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -25,6 +27,7 @@ export default function AdminLogin({ onLogin }: { onLogin: (token: string) => vo
         // Kiểm tra role admin
         if (data.user && data.user.role === "admin") {
           onLogin(data.access_token);
+          router.push("/admin");
         } else {
           setError("Bạn không có quyền truy cập admin!");
           setFailCount(failCount + 1);
