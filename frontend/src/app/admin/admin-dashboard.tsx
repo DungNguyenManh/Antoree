@@ -1,11 +1,20 @@
+
 "use client";
 import { useState, useEffect } from "react";
+
+interface User {
+    _id?: string;
+    id?: string;
+    email: string;
+    name?: string;
+    role: string;
+}
 
 export default function AdminDashboard({ token }: { token: string }) {
     const [tab, setTab] = useState("teacher");
 
     // State cho danh sách user
-    const [users, setUsers] = useState<any[]>([]);
+    const [users, setUsers] = useState<User[]>([]);
     const [loadingUsers, setLoadingUsers] = useState(false);
     const [errorUsers, setErrorUsers] = useState("");
 
@@ -51,7 +60,7 @@ export default function AdminDashboard({ token }: { token: string }) {
                                 </tr>
                             </thead>
                             <tbody>
-                                {users.map((u, i) => (
+                                {users.map((u: User, i: number) => (
                                     <tr key={u._id || u.id || i}>
                                         <td className="border px-2 py-1">{u.email}</td>
                                         <td className="border px-2 py-1">{u.name || ""}</td>
