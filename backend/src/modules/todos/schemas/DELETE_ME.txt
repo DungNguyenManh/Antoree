@@ -1,1 +1,0 @@
-Xóa toàn bộ thư mục schemas của todos vì không còn sử dụng.

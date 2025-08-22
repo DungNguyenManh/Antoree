@@ -9,8 +9,6 @@ export class Teacher extends Document {
     @Prop({ required: true })
     bio?: string;
 
-    @Prop()
-    avatarUrl?: string;
 
     @Prop([String])
     languages?: string[];
