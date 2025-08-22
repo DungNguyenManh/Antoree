@@ -10,10 +10,6 @@ export default function LoginPage() {
     const [loading, setLoading] = useState(false);
     const router = useRouter();
     const API_URL = process.env.NEXT_PUBLIC_API_URL;
-<<<<<<< HEAD
-    console.log("API_URL:", API_URL);
-=======
->>>>>>> 11f83616a67170c7497156c06ba4bfb4166668e4
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
