@@ -12,6 +12,9 @@ export class Booking extends Document {
     @Prop({ required: true })
     time: string; // ISO string
 
+    @Prop()
+    note?: string;
+
     @Prop({ default: 'pending' })
     status: 'pending' | 'confirmed' | 'cancelled';
 }

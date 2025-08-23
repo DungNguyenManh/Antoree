@@ -15,7 +15,6 @@ export class BookingService {
         return createdBooking.save();
     }
 
-
     async findAll(): Promise<Booking[]> {
         return this.bookingModel.find().exec();
     }
