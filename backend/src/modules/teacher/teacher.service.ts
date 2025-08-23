@@ -23,6 +23,10 @@ export class TeacherService {
         return this.teacherModel.findById(id).exec();
     }
 
+    async findByName(name: string): Promise<Teacher[]> {
+        return this.teacherModel.find({ name: { $regex: name, $options: 'i' } }).exec();
+    }
+
     async update(id: string, updateData: Partial<CreateTeacherDto>): Promise<Teacher> {
         const updated = await this.teacherModel.findByIdAndUpdate(id, updateData, { new: true });
         if (!updated) throw new NotFoundException('Teacher not found');

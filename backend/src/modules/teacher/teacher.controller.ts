@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param, Patch, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Patch, Delete, Query } from '@nestjs/common';
 import { TeacherService } from './teacher.service';
 import { CreateTeacherDto } from './dto/create-teacher.dto';
 
@@ -12,7 +12,10 @@ export class TeacherController {
     }
 
     @Get()
-    findAll() {
+    findAll(@Query('name') name?: string) {
+        if (name) {
+            return this.teacherService.findByName(name);
+        }
         return this.teacherService.findAll();
     }
 
