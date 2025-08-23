@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CreateTeacherDto } from './dto/create-teacher.dto';
@@ -21,5 +21,17 @@ export class TeacherService {
 
     async findOne(id: string): Promise<Teacher | null> {
         return this.teacherModel.findById(id).exec();
+    }
+
+    async update(id: string, updateData: Partial<CreateTeacherDto>): Promise<Teacher> {
+        const updated = await this.teacherModel.findByIdAndUpdate(id, updateData, { new: true });
+        if (!updated) throw new NotFoundException('Teacher not found');
+        return updated;
+    }
+
+    async remove(id: string): Promise<Teacher> {
+        const deleted = await this.teacherModel.findByIdAndDelete(id);
+        if (!deleted) throw new NotFoundException('Teacher not found');
+        return deleted;
     }
 }
