@@ -6,15 +6,11 @@ export class Teacher extends Document {
     @Prop({ required: true })
     name: string;
 
-    @Prop({ required: true })
+    @Prop()
     bio?: string;
-
 
     @Prop([String])
     languages?: string[];
-
-    @Prop([String])
-    availableTimes?: string[];
 }
 
 export const TeacherSchema = SchemaFactory.createForClass(Teacher);

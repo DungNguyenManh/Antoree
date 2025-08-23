@@ -1,8 +1,4 @@
-import { Controller, Get, Post, Body, Param, UploadedFile, UseInterceptors } from '@nestjs/common';
-import { FileInterceptor } from '@nestjs/platform-express';
-import type { Multer } from 'multer';
-import { diskStorage } from 'multer';
-import { extname } from 'path';
+import { Controller, Get, Post, Body, Param } from '@nestjs/common';
 import { TeacherService } from './teacher.service';
 import { CreateTeacherDto } from './dto/create-teacher.dto';
 
@@ -14,7 +10,6 @@ export class TeacherController {
     create(@Body() createTeacherDto: CreateTeacherDto) {
         return this.teacherService.create(createTeacherDto);
     }
-
 
     @Get()
     findAll() {
