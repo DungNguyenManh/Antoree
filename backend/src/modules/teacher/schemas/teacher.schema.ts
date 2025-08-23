@@ -11,6 +11,9 @@ export class Teacher extends Document {
 
     @Prop([String])
     languages?: string[];
+
+    @Prop()
+    avatar?: string;
 }
 
 export const TeacherSchema = SchemaFactory.createForClass(Teacher);

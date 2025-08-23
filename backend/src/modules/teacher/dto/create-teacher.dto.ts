@@ -12,4 +12,8 @@ export class CreateTeacherDto {
     @IsArray()
     @IsString({ each: true })
     languages?: string[];
+
+    @IsOptional()
+    @IsString()
+    avatar?: string;
 }
