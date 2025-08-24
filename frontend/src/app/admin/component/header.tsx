@@ -12,7 +12,7 @@ export default function AdminHeader() {
 
           <Link href="/admin/manage-teacher" className="hover:underline">Giáo viên</Link>
           <Link href="/admin/manage-student" className="hover:underline">Học viên</Link>
-          <Link href="/admin/package" className="hover:underline">Gói học</Link>
+          <Link href="/admin/package" className="hover:underline">Đặt lịch học</Link>
           <Link href="/admin/settings" className="hover:underline">Cài đặt</Link>
         </nav>
         <div className="flex gap-2">

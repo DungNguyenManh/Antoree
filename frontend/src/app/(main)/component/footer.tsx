@@ -6,7 +6,7 @@ export default function Footer() {
         <div className="flex gap-4 text-sm">
           <a href="/about" className="hover:underline">Giới thiệu</a>
           <a href="/teachers" className="hover:underline">Tìm giáo viên</a>
-          <a href="/packages" className="hover:underline">Gói học</a>
+          <a href="/booking" className="hover:underline">Đặt lịch học</a>
           <a href="/contact" className="hover:underline">Liên hệ</a>
         </div>
         <div className="text-xs text-gray-300">Hotline: 0123 456 789 | Email: support@antoree.com</div>
